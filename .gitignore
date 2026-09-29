@@ -1,9 +1,13 @@
-# 本地产物 / 临时文件
+# 运行数据 / 产物
 *.log
+*.sqlite
 .DS_Store
+node_modules/
 
-# 绝不要把凭据提交进来
+# 绝不要提交凭据
 credentials.yaml
 .credentials.yaml
-*.token
+auth.json
 .env
+*.token
+*.key

@@ -1,0 +1,52 @@
+# opencode 配置结构快照（已脱敏）
+# 源：~/.config/opencode/opencode.json
+# provider 的 apiKey 一律用 {env:VAR} 引用；下面只记结构，不记真值。
+
+$schema: ...
+model: cmd/deepseek/deepseek-v4.1-flash
+plugin:
+  - oh-my-openagent
+disabled_providers:
+  - bp
+  - bp2
+  - xkiro
+
+provider:
+  sense-nova:                              # 商汤（与 dsh 的 sense-nova 同源）
+    options: { baseURL: https://token.sensenova.cn/v1, apiKey: '{env:...}' }
+    models: [glm-5.2]
+
+  sense:                                   # 同上 baseURL，另一组模型
+    options: { baseURL: https://token.sensenova.cn/v1, apiKey: '{env:...}' }
+    models: [deepseek-v4-pro, kimi-k3, deepseek-v4-flash, sensenova-6.8-flash-lite]
+
+  zhongzhuan:                              # 中转站
+    options: { baseURL: https://ai.hsnb.fun/v1, apiKey: '{env:...}' }
+    models: [deepseek-v4.1-flash, glm-5.3-flash]
+
+  huanjing:                                # 同一中转站，另一组
+    options: { baseURL: https://ai.hsnb.fun/v1, apiKey: '{env:...}' }
+    models: [gpt-6-sol, gpt-6-luna]
+
+  cg:                                      # cgapi
+    options: { baseURL: https://api.cgapi.top/v1, apiKey: '{env:...}' }
+    models: [deepseek-v4.1-flash]
+
+  cg1:                                     # 同一 baseURL，另一组
+    options: { baseURL: https://api.cgapi.top/v1, apiKey: '{env:...}' }
+    models: [gemini-3.7-flash]
+
+  cmd:                                     # ⚠️ 本地反代
+    options: { baseURL: http://127.0.0.1:3050/v1, apiKey: '{env:...}' }
+    models:
+      - Qwen/Qwen3.7-Flash
+      - Qwen/Qwen3.8-Flash
+      - deepseek/deepseek-v4.1-flash
+      - gpt-5.6-luna
+      - inclusionai/ling-3.0-flash-sante:free
+      - meituan/LongCat-2.0:free
+      - poolside/laguna-s-2.1-free
+      - tencent/hy3-paid
+      - tencent/hy4-preview
+      - z-ai/glm-5.3-flash
+      # 还有 1 个未列出

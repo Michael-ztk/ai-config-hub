@@ -1,71 +1,63 @@
-# DSH 配置速查（本机存档）
+# ai-config-hub
 
-> 生成于 2026-09-29 · 仅记录**结构与非敏感配置**，不含任何密钥 / token。
-> 环境：`dsh 0.1.7-rc.2` · `node v24.14.0` · 全局安装
-> `~/.nvm/versions/node/v24.14.0/lib/node_modules/@deepseek-ai/dsh`
+本机**所有 AI 编码智能体**的配置档案库（已脱敏，不含任何密钥 / token）。
 
-## 目录结构
+> 建立于 2026-09-29 · 环境 `node v24.14.0` · Linux
+> 用途：换机 / 重装后按图索骥恢复；也作为「哪个智能体接了哪个模型」的单一事实来源。
 
-| 路径 | 作用 |
-|---|---|
-| `~/.dsh/` | Harness Home（`DSH_HOME`） |
-| `~/.dsh/settings.yaml` | 用户设置（当前为空，实际配置都写在补丁层） |
-| `~/.dsh/cordis.patch.yml` | **机器级补丁层**，作用于每一个 profile |
-| `~/.dsh/.credentials.yaml` | 凭据 refs；真值不进配置文件 |
-| `~/.dsh/profiles/web/` | web profile（浏览器 UI，端口 3080） |
-| `~/.dsh/profiles/headless/` | headless profile（无 UI） |
-| `~/.agents/skills/` | 用户级技能 |
+## 目录
 
-**补丁叠加顺序**：bundle 层 → profile 的 `cordis.patch.yml` → `--patch` 覆盖。
-`~/.dsh/cordis.patch.yml` 是全局层，web / headless / tui 都会吃到，适合放「所有入口都要有的 provider」。
-
-> 语义提醒：补丁是**整键替换**（不做深合并），所以覆盖 config 时必须把该 config
-> 的其它键一并重写，否则会被抹掉。
-
-## 插件速览（web profile）
-
-| 包 | 版本 | 来源 |
-|---|---|---|
-| `@deepseek-ai/dsh-base` | 0.1.7-rc.2 | 内置 |
-| `@deepseek-ai/dsh-web-app` | 0.1.7-rc.2 | 内置 |
-| `@changfenhuang/dsh-genui` | 0.9.8 | npm |
-| `@linxin666/dsh-web-all` | 0.4.3 | npm |
-| `@tt-a1i/archify-dsh` | 0.1.0 | npm |
-| `@mars-sea/dsh-commandcode-provider` | 0.11.17 | npm |
-| `dsh-codearts-auth` | 0.1.0 | git（gitee） |
-
-详见 [plugins.md](plugins.md)。
-
-## LLM provider 路由
-
-- 默认：`commandcode` / `deepseek/deepseek-v4.1-flash`
-- 全局层另有 `sense-nova` 路由（商汤）
-- `dsh-codearts-auth` 带来 `codearts` + `qoder` / `qodercn` / `trae` / `cline` /
-  `loomy` / `lobsterai` / `buddy` / `workbuddy` / `raccoon`
-
-详见 [providers.md](providers.md)。
-
-## 技能
-
-用户级 2 个（`caveman`、`find-skills`）+ 一个 bundle 自带的 `archify`。
-详见 [skills.md](skills.md)。
-
-## 恢复
-
-```bash
-bash restore.sh          # 重装全部插件（详见文件内注释）
+```
+agents/
+  dsh/        DeepSeek Harness（主力，Web UI 端口 3080）
+  opencode/   opencode（多 provider 中转，配置最杂）
+  claude/     Claude Code
+  codex/      Codex CLI
+  gemini/     Gemini CLI
+  cursor/     Cursor
+skills/       跨智能体技能清单
+scripts/      恢复脚本
 ```
 
-## 已知坑（都真实踩过）
+## 一句话现状
 
-1. **`dsh web` 子命令不接受 `--profile`** —— 正确形式是 `dsh --profile web [选项]`。
-2. **npm 升级会打散 koffi 包的去重布局** —— 表现是启动报
-   `Duplicate type name 'DSH_STARTUPINFOW'`、插件树加载失败。根因是
-   `dsh-win32-process` 等在模块顶层注册 koffi 类型，树里若有多份拷贝就会重复注册。
-   修法：把 `dsh-win32-process` / `dsh-subprocess-local` / `dsh-sandbox-local` /
-   `dsh-sandbox-windows-acl` 各收敛成 1 份。
-3. **git 源插件必须先放行 build 脚本** —— pnpm 默认拒跑 `prepare`，
-   否则拿不到 `lib/` 产物，启动报 `ERR_MODULE_NOT_FOUND`。
-4. **重启后 token 会变** —— 每次启动重新生成且不落 cookie，旧地址 401。
-   用 `restart-dsh.sh`（在 web profile 目录）会自动把新地址写到
-   `~/.dsh/logs/latest-web-url.txt`。
+| 智能体 | 配置位置 | 当前主力模型 | 特点 |
+|---|---|---|---|
+| **dsh** | `~/.dsh/` | `commandcode` / `deepseek-v4.1-flash` | 插件体系最完整，9+ provider |
+| **opencode** | `~/.config/opencode/opencode.json` | `cmd/deepseek/deepseek-v4.1-flash` | 7 个 provider，多为中转站 |
+| **claude** | `~/.claude/settings.json` | `qwen/qwen3.8-max:free` | 走 xkiro 中转，全档位同一模型 |
+| **codex** | `~/.codex/config.toml` | `qwen/qwen3.8-max:free` | 同样走 xkiro |
+| **gemini** | `~/.gemini/GEMINI.md` | — | 仅存一条记忆：用中文交流 |
+| **cursor** | `~/.cursor/` | — | 有 `agents/` 目录 |
+
+## 关键结论
+
+1. **`commandcode` 与 `sense-nova` 是共享的** —— dsh 和 opencode 都接了商汤
+   `token.sensenova.cn`。改一处别忘了另一处。
+2. **opencode 的 `cmd` provider 指向本地反代 `127.0.0.1:3050/v1`** —— dsh 侧曾
+   有同样配置，因与 `commandcode` 插件抢路由 id 已移除。opencode 那边还在用。
+3. **claude / codex 都走 xkiro 中转**（`api.xkiro.com`），且 claude 把
+   sonnet/haiku/opus **全部指向同一个** `qwen3.8-max:free`。
+4. **opencode 装了 `oh-my-openagent` 插件**，并显式禁用了 `bp` / `bp2` / `xkiro`
+   三个 provider。
+
+## 凭据
+
+**本仓库不含任何密钥。** 所有 API Key 都在各自的凭据文件里：
+
+- dsh → `~/.dsh/.credentials.yaml`（配置只写 `apiKeyEnv` 引用）
+- claude → `~/.claude/settings.json` 的 `env.ANTHROPIC_AUTH_TOKEN`
+- codex → `~/.codex/auth.json`
+- git → `~/.git-credentials`（`credential.helper = store`）
+
+恢复配置后需**自行填密钥**，或走各智能体自己的登录流程。
+
+## 安全
+
+提交前请自查：
+
+```bash
+grep -rniE "sk-[A-Za-z0-9]{10,}|AKID|Bearer [A-Za-z0-9]{20,}|token=[A-Za-z0-9_-]{20,}" .
+```
+
+`scripts/redact-check.sh` 封装了这一步。
