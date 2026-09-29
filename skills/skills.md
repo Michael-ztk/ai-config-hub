@@ -1,31 +1,26 @@
-# 技能清单（跨智能体）
+# 技能清单
 
-## 总览
+## 已装
 
 | 技能 | 归属 | 位置 |
 |---|---|---|
-| `caveman` | dsh（用户级） | `~/.agents/skills/caveman/` |
-| `find-skills` | dsh（用户级） | `~/.agents/skills/find-skills/` |
+| `caveman` | dsh 用户级 | `~/.agents/skills/caveman/` |
+| `find-skills` | dsh 用户级 | `~/.agents/skills/find-skills/` |
 | `archify` | dsh bundle | 随 `@tt-a1i/archify-dsh` |
 | `genui` | dsh bundle | 随 `@changfenhuang/dsh-genui` |
 | `skill-creator` | Claude | `~/.claude/skills/skill-creator/` |
 
-## dsh 用户级技能
-
-| 技能 | 说明 |
-|---|---|
-| `caveman` | 极限压缩表达，省 token（lite / full / ultra / wenyan 多档） |
-| `find-skills` | 从 skills.sh 生态搜索并安装技能 |
+安装：
 
 ```bash
 npx skills add <owner/repo@skill> -g -y
 ```
 
-浏览器：`@linxin666/dsh-web-all/skill-explorer` 已启用，可在 Web UI 里直接浏览已装技能。
+浏览：dsh 的 `@linxin666/dsh-web-all/skill-explorer` 子路由已启用，Web UI 里可直接看。
 
-## 待办：公众号写作技能
+## 待装：公众号写作
 
-本机**没有**公众号相关技能。生态里现成的（按安装量）：
+本机没有公众号相关技能。生态里现成的（按安装量）：
 
 | 技能 | 安装量 | 用途 |
 |---|---|---|
@@ -38,10 +33,9 @@ npx skills add <owner/repo@skill> -g -y
 npx skills add iamzhihuix/happy-claude-skills --skill wechat-article-writer -g -y
 ```
 
-⚠️ **两个坑**：
+⚠️ 两个坑：
 
-1. `wechat-article-writer` 的 SKILL.md 第一步要求读取用户的 `CLAUDE.md` 获取写作风格。
-   本机 `~/.claude/CLAUDE.md` **不存在**（`~/.codex/AGENTS.md` 也是 0 字节），
-   装完需改成 `AGENTS.md` 或内联风格要求，否则那步空转。
-2. `baoyu-*` 系列解决的是「后半段」（排版 / 发布），不解决选题和行文。
-   要全流程就 `wechat-article-writer` + `baoyu-markdown-to-html` 组合。
+1. `wechat-article-writer` 第一步要读 `CLAUDE.md` 取写作风格，本机该文件不存在，
+   装完需改成 `AGENTS.md` 或内联风格要求。
+2. `baoyu-*` 只管「后半段」（排版 / 发布），不管选题行文。要全流程就
+   `wechat-article-writer` + `baoyu-markdown-to-html` 组合。
