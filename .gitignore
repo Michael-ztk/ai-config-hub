@@ -1,0 +1,9 @@
+# 本地产物 / 临时文件
+*.log
+.DS_Store
+
+# 绝不要把凭据提交进来
+credentials.yaml
+.credentials.yaml
+*.token
+.env

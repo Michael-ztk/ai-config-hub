@@ -1,0 +1,45 @@
+# ============================================================
+# web profile 补丁层   ~/.dsh/profiles/web/cordis.patch.yml
+# 在 bundle 层之后生效
+# ============================================================
+
+- { id: web-ui-ssh, name: "@linxin666/dsh-web-all/ssh", disabled: false }
+
+- {
+    id: web-ui-liangshen,
+    name: "@linxin666/dsh-web-all/liangshen",
+    disabled: false
+  }
+
+- {
+    id: web-ui-skill-explorer,
+    name: "@linxin666/dsh-web-all/skill-explorer",
+    disabled: false
+  }
+
+- id: ui-settings-general
+  name: "@deepseek-ai/dsh-client-ui-settings-general"
+  config:
+    welcomeNoticeVersion: 2026-08-13.1
+
+- id: web-ui-git-graph
+  name: "@linxin666/dsh-web-all/git-graph"
+  config:
+    plugin: "@linxin666/dsh-client-ui-git-graph"
+    autoIsolate: true
+
+- id: llm-commandcode
+  name: "@mars-sea/dsh-commandcode-provider"
+  config:
+    apiKeyEnv: COMMANDCODE_API_KEY
+    visibleModels:
+      - deepseek/deepseek-v4.1-flash
+      - z-ai/glm-5.3-flash
+      - xiaomi/mimo-v2.6-flash
+      - xiaomi/mimo-v2.6-pro
+
+- id: agent-default-model
+  name: "@deepseek-ai/dsh-agent-default-model"
+  config:
+    provider: commandcode
+    model: deepseek/deepseek-v4.1-flash
