@@ -1,6 +1,6 @@
 # Codex CLI
 
-> 配置：`~/.codex/config.toml`（1.7 KB）
+> 配置：`~/.codex/config.toml`
 > 当前模型：`qwen/qwen3.8-max:free`，provider `xkiro`
 
 ## 主配置
@@ -17,7 +17,7 @@ env_key = "XKIRO_API_KEY"
 wire_api = "responses"
 ```
 
-与 Claude Code **同一个中转、同一个模型**。
+与 Claude Code 同一个中转、同一个模型。
 
 ## 受信任项目（trust_level = trusted）
 
@@ -37,8 +37,6 @@ wire_api = "responses"
 
 | 文件 | 说明 |
 |---|---|
-| `AGENTS.md` | 空（0 字节） |
-| `auth.json` | 凭据，**不入库** |
-| `hooks.json` | 3.7 KB，`pre_tool_use` / `permission_request` / `post_tool_use` / `session_start` / `user_prompt_submit` |
-| `config.toml` 的 `hooks.state.*` | 各 hook 的 `trusted_hash`（sha256），改动 hook 后需重新信任 |
-| `goals_1.sqlite` | 运行数据 |
+| `AGENTS.md` | 空 |
+| `auth.json` | 凭据，不入库 |
+| `hooks.json` | `pre_tool_use` / `permission_request` / `post_tool_use` / `session_start` / `user_prompt_submit` |

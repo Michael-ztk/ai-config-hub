@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# 在另一台机器（或重装 dsh 之后）恢复本机的插件配置。
+# 在另一台机器（或重装 dsh 之后）重装本机的全部插件。
 #
 # 用法：
-#   bash restore.sh            # 恢复 web profile
+#   bash restore-dsh.sh [profile]     # 默认 web
 #
-# 前置：已安装 dsh，且 web profile 已初始化（dsh --profile web 至少跑过一次）。
-# 凭据不随本仓库分发，恢复后需自行登录（Jet Hub 设置页）或填 ~/.dsh/.credentials.yaml。
+# 前置：已安装 dsh，且 profile 已初始化（dsh --profile web 至少跑过一次）。
+# 凭据不随本仓库分发，装完需自行登录（Jet Hub 设置页）或填 ~/.dsh/.credentials.yaml。
 
 set -uo pipefail
 

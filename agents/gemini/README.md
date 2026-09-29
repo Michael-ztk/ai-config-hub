@@ -4,7 +4,7 @@
 
 ## 记忆
 
-`~/.gemini/GEMINI.md`（79 字节）：
+`~/.gemini/GEMINI.md`：
 
 ```markdown
 ## Gemini Added Memories
@@ -16,6 +16,6 @@
 | 路径 | 说明 |
 |---|---|
 | `antigravity/` | 6 个子目录 |
-| `google_accounts.json` | 53 字节，账号索引（不含凭据本体） |
+| `google_accounts.json` | 账号索引 |
 
-配置极简，主要靠登录态。无自定义 provider / 模型覆盖。
+配置极简，靠登录态。无自定义 provider / 模型覆盖。
