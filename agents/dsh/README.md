@@ -1,18 +1,18 @@
 # DeepSeek Harness（dsh）
 
-`dsh 0.1.7-rc.2` · Web UI `http://127.0.0.1:3080`
+`dsh 0.2.2-rc.5` · Web UI `http://127.0.0.1:3080`
 
 ## 插件（web profile）
 
 | 包 | 版本 | 来源 |
 |---|---|---|
-| `@deepseek-ai/dsh-base` | 0.1.7-rc.2 | 内置 |
-| `@deepseek-ai/dsh-web-app` | 0.1.7-rc.2 | 内置 |
-| `@changfenhuang/dsh-genui` | 0.9.8 | npm |
-| `@linxin666/dsh-web-all` | 0.4.3 | npm |
-| `@tt-a1i/archify-dsh` | 0.1.0 | npm |
-| `@mars-sea/dsh-commandcode-provider` | 0.11.17 | npm |
-| `dsh-codearts-auth` | 0.1.0 | git（gitee） |
+| `@deepseek-ai/dsh-base` | 0.2.2-rc.5 | 内置 |
+| `@deepseek-ai/dsh-web-app` | 0.2.2-rc.5 | 内置 |
+| `@changfenhuang/dsh-genui` | 0.15.0 | npm |
+| `@linxin666/dsh-web-all` | 0.4.15 | npm |
+| `@tt-a1i/archify-dsh` | 1.0.0 | npm |
+| `@mars-sea/dsh-commandcode-provider` | 0.17.2 | npm |
+| `dsh-providers-hub` | 0.2.1-rc.5 | git（gitee） |
 
 详见 [plugins.md](plugins.md)。
 
@@ -32,7 +32,7 @@ dsh plugin --profile web add "https://gitee.com/iJetLi/deepseek-harness-codearts
 
 - 默认：`commandcode` / `deepseek/deepseek-v4.1-flash`
 - 全局层：`sense-nova`（商汤）
-- `dsh-codearts-auth` 带来 9 个：`codearts` `qoder` `qodercn` `trae` `cline`
+- `dsh-providers-hub` 带来 9 个：`codearts` `qoder` `qodercn` `trae` `cline`
   `loomy` `lobsterai` `buddy` `workbuddy` `raccoon`
 
 详见 [providers.md](providers.md)。

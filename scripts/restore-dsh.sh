@@ -24,16 +24,16 @@ fi
 # ---------- 1. git 源插件必须先放行 build 脚本 ----------
 WS_FILE="$PROFILE_DIR/pnpm-workspace.yaml"
 echo
-echo "[1/4] 放行 dsh-codearts-auth 的 build 脚本"
+echo "[1/4] 放行 dsh-providers-hub 的 build 脚本"
 touch "$WS_FILE"
-if grep -q "dsh-codearts-auth" "$WS_FILE"; then
+if grep -q "dsh-providers-hub" "$WS_FILE"; then
     echo "      已存在，跳过"
 else
     python3 - "$WS_FILE" <<'PY'
 import sys
 p = sys.argv[1]
 s = open(p).read()
-key = "  dsh-codearts-auth@git+https://gitee.com/iJetLi/deepseek-harness-codearts.git: true"
+key = "  dsh-providers-hub@git+https://gitee.com/iJetLi/deepseek-harness-codearts.git: true"
 lines = s.split("\n")
 out, done = [], False
 for l in lines:
@@ -61,7 +61,7 @@ done
 
 # ---------- 3. git 源插件 ----------
 echo
-echo "[3/4] 安装 git 源插件 dsh-codearts-auth"
+echo "[3/4] 安装 git 源插件 dsh-providers-hub"
 dsh plugin --profile "$PROFILE" add \
     "https://gitee.com/iJetLi/deepseek-harness-codearts.git" \
     || echo "      ⚠️ 安装失败（检查 gitee 可达性与 allowBuilds 是否已生效）"

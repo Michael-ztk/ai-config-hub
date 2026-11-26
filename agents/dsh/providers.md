@@ -12,7 +12,7 @@
 
 ## `commandcode`
 
-由 `@mars-sea/dsh-commandcode-provider@0.11.17` 提供。可见模型白名单：
+由 `@mars-sea/dsh-commandcode-provider@0.17.2` 提供。可见模型白名单：
 
 ```yaml
 - id: llm-commandcode
@@ -52,7 +52,7 @@
 
 密钥不进配置，只写 `apiKeyEnv` 引用；真值在 `~/.dsh/.credentials.yaml`。
 
-## `dsh-codearts-auth` 带来的 9 个
+## `dsh-providers-hub` 带来的 9 个
 
 登录入口统一在 **Jet Hub 设置页**，不注册斜杠命令：
 
